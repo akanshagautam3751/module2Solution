@@ -25,34 +25,44 @@
       }
     </style>
   </head>
-<body ng-controller="ShoppingListCheckOff">
+<body ng-app="ShoppingListCheckOff">
   <div class="container">
   <h1>Shopping List Check Off</h1>
 
   <div class="row">
 
     <!-- To Buy List -->
-    <div class="col-md-6" ng-controller="ToBuyController">
+    <div class="col-md-6" ng-controller="ToBuyController as showList">
      <h2>To Buy:</h2>
 
-     <ul>
-       <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+     <!-- <ul>
+       <li>Buy 10 cookies <button class="btn btn-default" ><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        <li>Buy 5 chips <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        <li>Buy 20 toffees <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        <li>Buy 10 drinks  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        <li>Buy 20 chocolates <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        <li>Buy 40 chewing-gums <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
-     </ul>
-     <div class="emptyMessage">Everything is bought!</div>
+     </ul> -->
+     <ul>
+        <li ng-repeat="item in showList.items">
+          {{ item.quantity }} of {{ item.name }}
+          <button class="btn btn-default" ng-click="showList.removeItem($index); showList.additem()"><span class="glyphicon glyphicon-ok"></span>Bought</button>
+        </li>
+      </ul>
+      <div class= "emptyMessage"ng-if="showList.items.length===0"> Everything is bought! </div>
     </div>
 
     <!-- Already Bought List -->
-    <div class="col-md-6" ng-controller="AlreadyBoughtController">
+    <div class="col-md-6" ng-controller="AlreadyBoughtController as itemAdder">
      <h2>Already Bought:</h2>
+  <div class= "emptyMessage" ng-if="itemAdder.items2.length===0"> Nothing bought yet! </div>
      <ul>
-       <li>Bought 10 cookies</li>
+       <!-- <li>Bought 10 cookies</li> -->
+       <li ng-repeat="item in itemAdder.items2">
+         {{ item.quantity }} of {{ item.name }}
+         <!-- <ng-if item===0 > -->
+       </li>
      </ul>
-     <div class="emptyMessage">Nothing bought yet.</div>
     </div>
   </div>
 </div>
